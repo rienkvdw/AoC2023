@@ -1,4 +1,4 @@
-# assignment 2
+# assignment 3
 import numpy as np
 
 # functie zodat de main for loop een beetje leesbaar blijft
