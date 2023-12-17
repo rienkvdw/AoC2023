@@ -5,7 +5,7 @@ import re
 # input uitlezen
 lines = []
 maps = []
-with open('inputtest.txt') as inputfile:
+with open('input.txt') as inputfile:
     inputstring = inputfile.read()
     input = re.split(':', inputstring)
     for line in input:
@@ -81,38 +81,48 @@ with open('inputtest.txt') as inputfile:
 #             huts.append(transforms[len(transforms)-1][i])
 #     transforms.append(huts)
 
-# lowLoc = np.inf
-# for seedIndex in range (0, len(seeds)):
+# res = []
+# for seedIndex in range (0, len(seeds),2):
 #     initSeed = seeds[seedIndex]
-#     seed = initSeed
-#     for mapje in maps:
-#         for key in mapje:
-#             if seed in range(key[0],key[1]):
-#                 seed = seed + mapje[key]
-#                 break
-#     if seed < lowLoc:
-#         lowLoc = seed
+#     while initSeed < seeds[seedIndex] + seeds[seedIndex+1]:
+#         seed = initSeed
+#         initSeed = 0
+#         for mapje in maps:
+#             for key in mapje:
+#                 if seed in range(key[0],key[1]):
+#                     seed = seed + mapje[key]
+#                     break
+#         res.append[seed]
+
 
 res = []
 for seedIndex in range(0, len(seeds), 2):
-    initSeed = seeds[seedIndex]
-    for seedje in range(seeds[seedIndex], seeds[seedIndex]+seeds[seedIndex+1]):
-        seed = seedje
+    seed_curr = seeds[seedIndex]
+    while seed_curr < seeds[seedIndex] + seeds[seedIndex+1]:
+        seed = seed_curr
+        seed_curr = 0
         for mapje in maps:
             for key in mapje:
                 if seed in range(key[0],key[1]):
+                    if seed_curr == 0:
+                        seed_curr = key[1]
                     seed = seed + mapje[key]
-                    break
+        print(seed)
         res.append(seed)
 
-print(res)
+lowLoc = min(res)
+for mapje in maps:
+    for key in mapje:
+        if lowLoc in range(key[0],key[1]):
+            lowLoc = lowLoc + mapje[key]
+            break
+
 # printen
 # print(lines)
 # print(seeds)
-# print(maps)
-# print(lowLoc)
-print(maps)
-print()
+print(res)
+print(min(res))
+print(lowLoc)
 
 # for mapje in maps:
 #     print(mapje)
